@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
             llist_insert_tail(&head, it);
         } else if (strcmp(command, "p") == 0) {
             llist_print(head);
+        } else if (strcmp(command, "f") == 0) {
+            llist_free(&head);
         }
     }
     return 0;
@@ -82,4 +84,19 @@ void llist_print(struct node *head) {
         }
     }
     printf("\n");
+}
+
+void llist_free(struct node **head) {
+    struct node *curr_node = *head;
+    if (curr_node == NULL) {
+        return;
+    } else {
+        while (curr_node->next !=NULL) {
+            struct node *next_node = curr_node->next;
+            node_free(curr_node);
+            curr_node = next_node;
+        }
+        node_free(curr_node);
+        *head = NULL;
+    }
 }
