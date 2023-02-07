@@ -55,11 +55,17 @@ struct node *llist_delete_head(struct node **head) {
 }
 
 void llist_insert_tail(struct node **head, struct node *n) {
+
     struct node *curr_node = *head;
-    while (curr_node->next != NULL) {
-        curr_node = curr_node->next;
+
+    if (*head == NULL) {
+        *head = n;
+    } else {
+        while (curr_node->next != NULL) {
+            curr_node = curr_node->next;
+        }
+        curr_node->next = n;
     }
-    curr_node->next = n;
 }
 
 void llist_print(struct node *head) {
