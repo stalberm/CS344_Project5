@@ -20,8 +20,9 @@ int main(int argc, char *argv[]) {
             int val = atoi(argv[i+1]);
             struct node *it = node_alloc(val);
             llist_insert_tail(&head, it);
+        } else if (strcmp(command, "p") == 0) {
+            llist_print(head);
         }
-        if (head != NULL) {printf("Head value after command %d\n", head->value);}
     }
     return 0;
 }
@@ -59,4 +60,20 @@ void llist_insert_tail(struct node **head, struct node *n) {
         curr_node = curr_node->next;
     }
     curr_node->next = n;
+}
+
+void llist_print(struct node *head) {
+    struct node *curr_node = head;
+    if (curr_node == NULL) {
+        printf("[empty]");
+    } else {
+        while (curr_node != NULL) {
+            printf("%d",curr_node->value);
+            curr_node = curr_node->next;
+            if (curr_node != NULL) {
+                printf(" -> ");
+            }
+        }
+    }
+    printf("\n");
 }
