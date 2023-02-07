@@ -10,11 +10,14 @@ int main(int argc, char *argv[]) {
 
     for (int i =1; i < argc; i++) {
         char *command = argv[i];
-        struct node *n = node_alloc(10);
-        llist_insert_head(&head, n);
-        printf("Old head value: %d\n", head->value);
-        struct node *old = llist_delete_head(&head);
-        printf("Deleted nodes value: %d\n", old->value);
+        if (strcmp(command, "ih") == 0) {
+            int val = atoi(argv[i+1]);
+            struct node *ih = node_alloc(val);
+            llist_insert_head(&head, ih);
+        } else if (strcmp(command, "dh") == 0) {
+            llist_delete_head(&head);
+        }
+        if (head != NULL) {printf("Head value after command %d\n", head->value);}
     }
     return 0;
 }
@@ -45,3 +48,4 @@ struct node *llist_delete_head(struct node **head) {
     *head = new_head;
     return prev_head;
 }
+
